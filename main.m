@@ -1,3 +1,4 @@
+%% Read Data
 % bovenarm, onderarm, torso, bekken hebben assenstelsel nodig
 % x: plain of motion; y: elavation
 fs = 300;
@@ -8,6 +9,7 @@ numberOfCameras = 11;
 numberOfMarkers = 34;
 
 tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
+<<<<<<< Updated upstream
 
 %[b,a] = butter(4,fc/(fs/2));
 
@@ -17,6 +19,8 @@ disp('Nu komt HR data')
 HR_x = HR_data(:,1);
 HR_y = HR_data(:,2);
 HR_z = HR_data(:,3);
+=======
+>>>>>>> Stashed changes
 
 HR = [tsv_data(:,1);tsv_data(:,2);tsv_data(:,3)];
 disp(HR)
