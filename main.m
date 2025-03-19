@@ -14,13 +14,32 @@ tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
 %[b,a] = butter(4,fc/(fs/2));
 
 disp(tsv_data)
-HR_data = tsv_data(:,1:3);
+HR_data = tsv_data{:,1:3};
+
 disp('Nu komt HR data')
 HR_x = HR_data(:,1);
 HR_y = HR_data(:,2);
 HR_z = HR_data(:,3);
 =======
 >>>>>>> Stashed changes
+
+% Ensure the reshaping is valid
+if mod(length(HR_z), num_rows) == 0
+    HR_z_matrix = reshape(HR_z, num_rows, num_cols);
+else
+    error("Cannot reshape: Choose different num_rows value");
+end
+
+[HR_x_matrix, HR_y_matrix] = meshgrid(HR_x(1:num_cols), HR_y(1:num_rows));
+disp(HR_z_matrix);
+
+figure;
+mesh(HR_x_matrix,HR_y_matrix,HR_z_matrix)
+xlabel('HR_x');
+ylabel('HR_y');
+zlabel('HR_z');
+title('3D Mesh of HR Data');
+
 
 HR = [tsv_data(:,1);tsv_data(:,2);tsv_data(:,3)];
 disp(HR)
