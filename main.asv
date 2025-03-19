@@ -14,10 +14,7 @@ tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
 disp(tsv_data)
 HR_data = tsv_data(:,1:3);
 disp('Nu komt HR data')
-HR_x = HR_data(:,1);
-HR_y = HR_data(:,2);
-HR_z = HR_data(:,3);
-
+disp(HR_data(,1));
 HR = [tsv_data(:,1);tsv_data(:,2);tsv_data(:,3)];
 disp(HR)
 %% Tobias snelle jelle test code
