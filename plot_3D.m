@@ -5,18 +5,30 @@ tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
 %[b,a] = butter(4,fc/(fs/2));
 
 HR_data = tsv_data{:,1:3};
+HL_data = tsv_data{:,4:6};
+
 disp('Nu komt HR data')
 HR_x = HR_data(:,1);
 HR_y = HR_data(:,2);
 HR_z = HR_data(:,3);
 
+<<<<<<< Updated upstream
+=======
+HL_x = HL_data(:,1);
+HL_y = HL_data(:,2);
+HL_z = HL_data(:,3);
+>>>>>>> Stashed changes
 
 %% Plot
 plot3(HR_x, HR_y, HR_z)
+hold on
+
+plot3(HL_x, HL_y, HL_z)
 axis equal
 xlabel("X Space")
 ylabel("Y Space")
 zlabel("Z Space")
+<<<<<<< Updated upstream
 
 %%
 %% Load marker data
@@ -79,16 +91,22 @@ for i = 1:nFrames
     angles(i,:) = rad2deg(eul); % omzetten naar graden
 end
 
+% Applying butterworth filtering
+Fs = 300;                       % Sampling frequency (Hz)
+t = 0:1/Fs:1;                   % Time vector (1 second)
+order = 4;                      % Filter order
+cutoff = 100;                   % Cutoff frequency (Hz)
+Wn = cutoff / (Fs/2);           % Normalize cutoff to Nyquist frequency
+[b, a] = butter(order, Wn);     % Low-pass Butterworth filter
+y = filtfilt(b, a, angles(:,2));          % Zero-phase filtering (recommended for analysis)
+
 % Plot bijvoorbeeld elevatie (2e hoek)
-plot(angles(:,2));
+plot(y);
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
 
-[z,p,k] = butter(3,angles(:,1));
-sos = zp2sos(z,p,k);
-freqz(sos,128,1000);
 
 
-
-
-
+=======
+hold off;
+>>>>>>> Stashed changes
