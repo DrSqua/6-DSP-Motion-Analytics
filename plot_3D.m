@@ -15,7 +15,10 @@ HR_z = HR_data(:,3);
 HL_x = HL_data(:,1);
 HL_y = HL_data(:,2);
 HL_z = HL_data(:,3);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 %% Plot
 plot3(HR_x, HR_y, HR_z)
@@ -26,7 +29,10 @@ axis equal
 xlabel("X Space")
 ylabel("Y Space")
 zlabel("Z Space")
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 %%
 %% Load marker data
@@ -97,15 +103,18 @@ end
 
 % Applying butterworth filtering
 Fs = 300;                       % Sampling frequency (Hz)
-t = 0:1/Fs:1;                   % Time vector (1 second)
 order = 4;                      % Filter order
 cutoff = 100;                   % Cutoff frequency (Hz)
 Wn = cutoff / (Fs/2);           % Normalize cutoff to Nyquist frequency
 [b, a] = butter(order, Wn);     % Low-pass Butterworth filter
-y = filtfilt(b, a, angles(:,2));          % Zero-phase filtering (recommended for analysis)
+
+y = angles(:,1);
+
+y_clean = y(isfinite(y));
+y_filtered = filtfilt(b, a, y_clean);% Zero-phase filtering (recommended for analysis)
 
 % Plot bijvoorbeeld elevatie (2e hoek)
-plot(y);
+plot(y_filtered);
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
 
