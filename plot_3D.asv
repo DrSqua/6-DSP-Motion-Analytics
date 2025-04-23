@@ -25,9 +25,9 @@ tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
 
 HR_data = tsv_data{:,1:3};
 disp('Nu komt HR data')
-HR_x = HR_data{:,1};
-HR_y = HR_data{:,2};
-HR_z = HR_data{:,3};
+HR_x = tsv_data{:,1};
+HR_y = tsv_data{:,2};
+HR_z = tsv_data{:,3};
 
 HL_x = tsv_data{:,4};
 HL_y = tsv_data{:,5};
@@ -37,23 +37,23 @@ C7_x = tsv_data{:,7};
 C7_y = tsv_data{:,8};
 C7_z = tsv_data{:,9};
 
-MS_x = tsv_data{:,10);
-MS_y = tsv_data{:,11);
-MS_z = tsv_data{:,12);
+MS_x = tsv_data{:,10};
+MS_y = tsv_data{:,11};
+MS_z = tsv_data{:,12};
 
-PX_x = tsv_data{:,13);
-PX_y = tsv_data{:,14);
-PX_z = tsv_data{:,15);
+PX_x = tsv_data{:,13};
+PX_y = tsv_data{:,14};
+PX_z = tsv_data{:,15};
 
-AR_x = tsv_data{:,16);
-AR_y = tsv_data{:,17);
-AR_z = tsv_data{:,18);
+AR_x = tsv_data{:,16};
+AR_y = tsv_data{:,17};
+AR_z = tsv_data{:,18};
 
 % Veronderstel dat we markers hebben zoals: SCAP1_x, SCAP1_y, SCAP1_z, HUM1_x, ...
 % Zet ze om naar matrices (positie in tijd: Nx3)
 HR = [HR_x HR_y HR_z]
 HL = [HL_x HL_y HL_z]
-C7 = [C7_   x C7_y C7_z]
+C7 = [C7_x C7_y C7_z]
 
 MS = [MS_x MS_y MS_z]
 PX = [PX_x PX_y PX_z]
@@ -75,7 +75,7 @@ angles = zeros(nFrames, 3); % [alpha beta gamma]
 for i = 1:nFrames
     rotm = R_joint(:,:,i);
     % Gebruik ZYX of gewenste volgorde hier — hier bv. 'yxy'
-    eul = rotm2eul(rotm, 'yxy'); 
+    eul = rot_matx_euler(rotm); 
     angles(i,:) = rad2deg(eul); % omzetten naar graden
 end
 
@@ -83,6 +83,11 @@ end
 plot(angles(:,2));
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
+
+[z,p,k] = butter(3,angles(:,1));
+sos = zp2sos(z,p,k);
+freqz(sos,128,)
+plot();
 
 
 

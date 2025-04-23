@@ -84,6 +84,11 @@ plot(angles(:,2));
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
 
+[z,p,k] = butter(3,angles(:,1));
+sos = zp2sos(z,p,k);
+freqz(sos,128,1000);
+
+
 
 
 
