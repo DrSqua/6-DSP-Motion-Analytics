@@ -9,7 +9,7 @@ numberOfCameras = 11;
 numberOfMarkers = 34;
 
 tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
-<<<<<<< Updated upstream
+
 
 %[b,a] = butter(4,fc/(fs/2));
 
@@ -20,8 +20,7 @@ disp('Nu komt HR data')
 HR_x = HR_data(:,1);
 HR_y = HR_data(:,2);
 HR_z = HR_data(:,3);
-=======
->>>>>>> Stashed changes
+
 
 % Ensure the reshaping is valid
 if mod(length(HR_z), num_rows) == 0
