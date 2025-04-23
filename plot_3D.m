@@ -74,12 +74,16 @@ PX = [PX_x PX_y PX_z];
 AR = [AR_x AR_y AR_z];
 
 
-numCols = width(tsv_data);
-disp(numCols);
-
-for i = 1:numCols
-    
-end
+% numCols = width(tsv_data);
+% disp(numCols);
+% 
+% markerNames = cell(1, numCols);
+% 
+% for i = 1:numCols
+%    markerNames{i} = tsv_data(11,i);
+% 
+% 
+% end
 
 % Bereken rotatiematrices over de tijd
 R_scap = makeFrame(HR, HL, C7); % scapula als proximale segment
@@ -117,4 +121,3 @@ y_filtered = filtfilt(b, a, y_clean);% Zero-phase filtering (recommended for ana
 plot(y_filtered);
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
-
