@@ -12,12 +12,10 @@ HR_x = HR_data(:,1);
 HR_y = HR_data(:,2);
 HR_z = HR_data(:,3);
 
-<<<<<<< Updated upstream
-=======
 HL_x = HL_data(:,1);
 HL_y = HL_data(:,2);
 HL_z = HL_data(:,3);
->>>>>>> Stashed changes
+
 
 %% Plot
 plot3(HR_x, HR_y, HR_z)
@@ -28,15 +26,13 @@ axis equal
 xlabel("X Space")
 ylabel("Y Space")
 zlabel("Z Space")
-<<<<<<< Updated upstream
+
 
 %%
 %% Load marker data
 %data = readtable("D:\User\Mateo\Unif\S6\6-Digital Signal Processing\10Ax1_view.xlsx");
 tsv_data = readtable("10Ax1.tsv", "FileType","text",'Delimiter', '\t');
 
-HR_data = tsv_data{:,1:3};
-disp('Nu komt HR data')
 HR_x = tsv_data{:,1};
 HR_y = tsv_data{:,2};
 HR_z = tsv_data{:,3};
@@ -63,13 +59,21 @@ AR_z = tsv_data{:,18};
 
 % Veronderstel dat we markers hebben zoals: SCAP1_x, SCAP1_y, SCAP1_z, HUM1_x, ...
 % Zet ze om naar matrices (positie in tijd: Nx3)
-HR = [HR_x HR_y HR_z]
-HL = [HL_x HL_y HL_z]
-C7 = [C7_x C7_y C7_z]
+HR = [HR_x HR_y HR_z];
+HL = [HL_x HL_y HL_z];
+C7 = [C7_x C7_y C7_z];
 
-MS = [MS_x MS_y MS_z]
-PX = [PX_x PX_y PX_z]
-AR = [AR_x AR_y AR_z]
+MS = [MS_x MS_y MS_z];
+PX = [PX_x PX_y PX_z];
+AR = [AR_x AR_y AR_z];
+
+
+numCols = width(tsv_data);
+disp(numCols);
+
+for i = 1:numCols
+    
+end
 
 % Bereken rotatiematrices over de tijd
 R_scap = makeFrame(HR, HL, C7); % scapula als proximale segment
@@ -105,8 +109,3 @@ plot(y);
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
 
-
-
-=======
-hold off;
->>>>>>> Stashed changes
