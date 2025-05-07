@@ -1,3 +1,7 @@
+% 1) Drie punten pakken
+% 2) Assen berekenen met p_0 - p_1 -> zo verder
+% 3) Normaliseren -> delen door zichzelf -> of 'normalize' functie opzoeken
+% 4) Unit vectors plotten (niet deze functie)
 function R = makeFrame(P1, P2, P3)
     % Bouw een lokaal assenstelsel:
     % P1 = origine, P2 bepaalt x, P3 bepaalt xy-vlak
