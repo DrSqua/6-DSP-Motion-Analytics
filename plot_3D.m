@@ -15,10 +15,6 @@ HR_z = HR_data(:,3);
 HL_x = HL_data(:,1);
 HL_y = HL_data(:,2);
 HL_z = HL_data(:,3);
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 %% Plot
 plot3(HR_x, HR_y, HR_z)
@@ -26,13 +22,10 @@ hold on
 
 plot3(HL_x, HL_y, HL_z)
 axis equal
+hold off
 xlabel("X Space")
 ylabel("Y Space")
 zlabel("Z Space")
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
 %%
 %% Load marker data
@@ -108,7 +101,7 @@ end
 % Applying butterworth filtering
 Fs = 300;                       % Sampling frequency (Hz)
 order = 4;                      % Filter order
-cutoff = 100;                   % Cutoff frequency (Hz)
+cutoff = 1;                   % Cutoff frequency (Hz)
 Wn = cutoff / (Fs/2);           % Normalize cutoff to Nyquist frequency
 [b, a] = butter(order, Wn);     % Low-pass Butterworth filter
 
@@ -121,3 +114,5 @@ y_filtered = filtfilt(b, a, y_clean);% Zero-phase filtering (recommended for ana
 plot(y_filtered);
 ylabel("GH Elevation (degrees)");
 xlabel("Time Frame");
+
+%% Maak een FFT en analyseren bij welke frequennties het meeste energie zit
