@@ -1,8 +1,8 @@
-function eul = rot_matx_euler(R)
+ function eul = rot_matx_euler(R)
     % Input: R = 3x3 rotatiematrix
     % Output: eul = [alpha beta gamma] in radians
 
-    beta = acos(R(2,2));
+    beta = acos(R(2,2));    
     
     if abs(sin(beta)) < 1e-6
         % Gimbal lock geval (beta ~ 0 of pi)

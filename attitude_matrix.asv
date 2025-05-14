@@ -1,0 +1,32 @@
+function [attitude_matrix] = attitude_matrix(Point1,Point2,Point3)
+% ATTITUDEMATRIX  Build a 3x3 attitude (direction‐cosine) matrix from 3 markers
+%
+%   R = attitudeMatrix(p1,p2,p3)
+%
+% Inputs:
+%   p1, p2, p3   3×1 vectors of marker positions in the GLOBAL frame
+%                - p1 is the segment origin
+%                - p2 defines the local x-axis (p2→p1)
+%                - p3 lies in the local x–y plane
+%
+% Output:
+%   R            3×3 attitude matrix: columns are the local [x y z] axes
+%                expressed in the GLOBAL frame
+
+  % 1) local x-axis
+  v1 = Poit2 - Point1;
+  e1 = v1 / norm(v1);
+
+  % 2) a vector in the local x–y plane
+  v  = Point3 - Point1;
+
+  % 3) local z-axis (normal to the plane)
+  e3 = cross(e1, v);
+  e3 = e3 / norm(e3);
+
+  % 4) local y-axis (completing a right‐handed basis)
+  e2 = cross(e3, e1);
+
+  % 5) assemble into attitude matrix
+  attitude_matrix = [ e1, e2, e3 ];
+end
