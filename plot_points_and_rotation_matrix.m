@@ -12,6 +12,8 @@ C7_x = tsv_data{:,7};
 C7_y = tsv_data{:,8};
 C7_z = tsv_data{:,9};
 
+% TODO: Spectrum analyse doen om die frequentie te benaderen
+
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
 cutoff = 1; % Cutoff frequency (Hz)

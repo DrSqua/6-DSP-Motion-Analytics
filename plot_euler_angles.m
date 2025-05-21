@@ -18,6 +18,13 @@ MS = tsv{:,10:12};  % humerus markers
 PX = tsv{:,13:15};
 AR = tsv{:,16:18};
 
+% Upper arm
+AR = tsv{:16:18};
+ELR = tsv{:,25:27};
+EMR = tsv{:,28:30};
+PLR = tsv{:,40:42};
+
+
 nFrames = size(HR,1);
 
 %% 2) Preallocate
