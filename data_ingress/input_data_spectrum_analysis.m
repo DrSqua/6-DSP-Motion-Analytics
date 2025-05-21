@@ -30,7 +30,7 @@ function fig = input_data_spectrum_analysis(raw_x, fs, max_f)
 
     % Converting to dB
     power = abs(s)'.^2;
-    power = 20*log(power + eps); % add eps to avoid log(0)
+    %power = 20*log(power + eps); % add eps to avoid log(0)
 
     fig = figure; % Create figure (which will be returned)
 

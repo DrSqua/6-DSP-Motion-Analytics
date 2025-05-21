@@ -18,12 +18,15 @@ MS = tsv{:,10:12};  % humerus markers
 PX = tsv{:,13:15};
 AR = tsv{:,16:18};
 
+<<<<<<< Updated upstream
 % Upper arm
 AR = tsv{:16:18};
 ELR = tsv{:,25:27};
 EMR = tsv{:,28:30};
 PLR = tsv{:,40:42};
 
+=======
+>>>>>>> Stashed changes
 
 nFrames = size(HR,1);
 
@@ -51,7 +54,7 @@ end
 
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
-cutoff = 1; % Cutoff frequency (Hz)
+cutoff = 10; % Cutoff frequency (Hz)
 anglesFilt(:,1) = butterworth_filter(jointAngles(:,1), Fs, cutoff, order); 
 anglesFilt(:,2) = butterworth_filter(jointAngles(:,2), Fs, cutoff, order); 
 anglesFilt(:,3) = butterworth_filter(jointAngles(:,3), Fs, cutoff, order); 

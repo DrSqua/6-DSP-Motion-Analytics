@@ -16,7 +16,7 @@ C7_z = tsv_data{:,9};
 
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
-cutoff = 1; % Cutoff frequency (Hz)
+cutoff = 10; % Cutoff frequency (Hz)
 P1 = [butterworth_filter(HR_x, Fs, cutoff, order) butterworth_filter(HR_y, Fs, cutoff, order) butterworth_filter(HR_z, Fs, cutoff, order)];
 P2 = [butterworth_filter(HL_x, Fs, cutoff, order) butterworth_filter(HL_y, Fs, cutoff, order) butterworth_filter(HL_z, Fs, cutoff, order)];
 P3 = [butterworth_filter(C7_x, Fs, cutoff, order) butterworth_filter(C7_y, Fs, cutoff, order) butterworth_filter(C7_z, Fs, cutoff, order)];
