@@ -23,7 +23,7 @@ AL  = tsv{:,19:21}; % Schouder Links
 ELR = tsv{:,25:27}; % Elleboog
 EMR = tsv{:,28:30}; % Elleboog binnen
 PMR = tsv{:,40:42}; % Pols
-PLR = tsv{:,43:45}; % Pols binnen
+PLR = tsv{:,43:45}; % Pols binnen
 
 nFrames = size(HR,1);
 %% 2) Preallocate
@@ -31,7 +31,7 @@ R_scap = zeros(3,3,nFrames);
 R_hum  = zeros(3,3,nFrames);
 R_upp_arm = zeros(3,3,nFrames);
 R_upp_arm_child = zeros(3,3,nFrames);
-R_thorax = zeros(3,4,nFrames);
+R_thorax = zeros(3,3,nFrames);
 R_thorax_child = [MS(1,:)', PX(1,:)', AR(1,:)', AL(1,:)'];
 
 jointAngles_arm = zeros(nFrames,3);  % [flexion, abduction, rotation]
@@ -50,7 +50,7 @@ for i = 1:nFrames
   % 3b) Relative rotation (humerus relative to scapula)
   R_rel_hum = rel_rotation_matrix(R_scap(:,:,i), R_hum(:,:,i));
   R_rel_arm = rel_rotation_matrix(R_upp_arm(:,:,i), R_upp_arm_child(:,:,i));
-  R_rel_thorax = rel_rot_for_N_points(R_thorax(:,:,i) ,R_thorax_child);
+  R_rel_thorax = rel_rot_for_N_points(R_thorax ,R_thorax_child);
 
   % 3c) Cardan (X–Y–Z) angles in deg: [flexion, abduction, axialRot]
   [f,a,r] = Euler_Cardan_angles(R_rel_arm);
@@ -58,7 +58,7 @@ for i = 1:nFrames
   [f3,a3,r3] = Euler_Cardan_angles(R_rel_thorax);
   jointAngles_arm(i,:) = [f, a, r];
   jointAngles_hum(i,:) = [f2, a2, r2];
-  jointAngles_thorax(i,:) = [f3,a3,r3];
+  jointAngles_
 end
 
 %% 4) Butterworth filter the time series of each angle
@@ -73,10 +73,6 @@ anglesFilt_arm(:,3) = butterworth_filter(jointAngles_arm(:,3), Fs, cutoff, order
 anglesFilt_hum(:,1) = butterworth_filter(jointAngles_hum(:,1), Fs, cutoff, order); 
 anglesFilt_hum(:,2) = butterworth_filter(jointAngles_hum(:,2), Fs, cutoff, order); 
 anglesFilt_hum(:,3) = butterworth_filter(jointAngles_hum(:,3), Fs, cutoff, order); 
-
-anglesFilt_thorax(:,1) = butterworth_filter(jointAngles_thorax(:,1), Fs, cutoff, order); 
-anglesFilt_thorax(:,2) = butterworth_filter(jointAngles_thorax(:,2), Fs, cutoff, order); 
-anglesFilt_thorax(:,3) = butterworth_filter(jointAngles_thorax(:,3), Fs, cutoff, order); 
 %% 5) Plot the three joint‐angle time series
 t = (1:nFrames)/Fs;  % time vector in seconds
 %t = (1:1674);  % time vector in seconds
@@ -118,21 +114,6 @@ plot(t, anglesFilt_hum(:,3))
 ylabel('Axial Rot. (°)')
 xlabel('Time (s)')
 
-figure;
-sgtitle("thorax")
-subplot(3,1,1)
-plot(t, anglesFilt_thorax(:,1))
-ylabel('Flexion (°)')
-title('Glenohumeral Joint Angles')
-
-subplot(3,1,2)
-plot(t, anglesFilt_thorax(:,2))
-ylabel('Abduction (°)')
-
-subplot(3,1,3)
-plot(t, anglesFilt_thorax(:,3))
-ylabel('Axial Rot. (°)')
-xlabel('Time (s)')
 %% 6) (Optional) Visualize one frame of local axes
 frameToShow = round(nFrames/2);
 L = 100;  % scale for quivers
