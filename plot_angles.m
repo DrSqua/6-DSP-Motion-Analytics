@@ -11,6 +11,7 @@ switch local_frame
         EMR = tsv{:,28:30}; % Elleboog binnen
         PMR = tsv{:,40:42}; % Pols
         PLR = tsv{:,43:45}; % Pols binnen
+        AR  = tsv{:,16:18}; % Schouder Rechts
         
         nFrames = size(ELR,1);
 
