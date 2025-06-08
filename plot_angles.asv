@@ -26,6 +26,8 @@ switch local_frame
         R_thorax = zeros(3,3,nFrames);
         jointAngles_UT = zeros(nFrames,3);  % [flexion, abduction, rotation]
 
+        jointAngles_arm = zeros(nFrames,3);  % [flexion, abduction, rotation]
+        
         for i = 1:nFrames
           % 3a) Attitude matrices (local→global)
           R_thorax(:,:,i) = [MS(i,:)', PX(i,:)', AR(i,:)', AL(i,:)'];
@@ -38,28 +40,28 @@ switch local_frame
         
           % 3c) Cardan (X–Y–Z) angles in deg: [flexion, abduction, axialRot]
           [f,a,r] = Euler_Cardan_angles(R_rel_UT);
-          jointAngles_UT(i,:) = [f, a, r];
+          jointAngles_arm(i,:) = [f, a, r];
         end
 
-        anglesFilt_arm(:,1) = butterworth_filter(jointAngles_UT(:,1), Fs, cutoff, order); 
-        anglesFilt_arm(:,2) = butterworth_filter(jointAngles_UT(:,2), Fs, cutoff, order); 
-        anglesFilt_arm(:,3) = butterworth_filter(jointAngles_UT(:,3), Fs, cutoff, order); 
+        anglesFilt_arm(:,1) = butterworth_filter(jointAngles_arm(:,1), Fs, cutoff, order); 
+        anglesFilt_arm(:,2) = butterworth_filter(jointAngles_arm(:,2), Fs, cutoff, order); 
+        anglesFilt_arm(:,3) = butterworth_filter(jointAngles_arm(:,3), Fs, cutoff, order); 
 
         t = (1:nFrames)/Fs;  % time vector in seconds
 
         fig = figure;
         sgtitle("upper arm (first method=no PLR) (relative to thorax)")
         subplot(3,1,1)
-        plot(ax, t, anglesFilt_arm(:,1))
+        plot(t, anglesFilt_arm(:,1))
         ylabel('Flexion (°)')
         title('Glenohumeral Joint Angles')
         
         subplot(3,1,2)
-        plot(ax, t, anglesFilt_arm(:,2))
+        plot(t, anglesFilt_arm(:,2))
         ylabel('Abduction (°)')
         
         subplot(3,1,3)
-        plot(ax, t, anglesFilt_arm(:,3))
+        plot(t, anglesFilt_arm(:,3))
         ylabel('Axial Rot. (°)')
         xlabel('Time (s)')
 
