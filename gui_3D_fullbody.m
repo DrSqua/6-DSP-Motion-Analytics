@@ -29,6 +29,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_upper_arm(:, 2);
     z = positions_upper_arm(:, 3);
     plot3(x, y, z, '-ro')
+    hold on;
   
     % Lower arm
     positions_lower_arm = [EMR(t, :); PLR(t, :); PMR(t, :); EMR(t, :)];
@@ -36,6 +37,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_lower_arm(:, 2);
     z = positions_lower_arm(:, 3);
     plot3(x, y, z, '-go')
+    hold on;
     
     % Thorax
     positions_thorax = [AR(t, :); MS(t, :); AL(t, :); PX(t, :); AR(t, :)];
@@ -43,6 +45,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_thorax(:, 2);
     z = positions_thorax(:, 3);
     plot3(x, y, z, '-bo')
+    hold on;
     
     % Heup (pelvis)
     positions_pelvis = [SIPSR(t, :); SIPSL(t, :); SIASL(t, :); SIASR(t, :); SIPSR(t, :)];
@@ -50,6 +53,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_pelvis(:, 2);
     z = positions_pelvis(:, 3);
     plot3(x, y, z, '-ko')
+    hold on;
     
     % Linker dijbeen
     positions_thigh = [CLL(t, :); SIPSL(t, :); SIASL(t, :); CLL(t, :)];
@@ -57,6 +61,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_thigh(:, 2);
     z = positions_thigh(:, 3);
     plot3(x, y, z, '-mo')
+    hold on;
     
     % Linker scheenbeen
     positions_thigh = [CLL(t, :); MLL(t, :); MML(t, :); CLL(t, :)];
@@ -64,4 +69,5 @@ function [fig] = gui_3D_fullbody(tsv, t)
     y = positions_thigh(:, 2);
     z = positions_thigh(:, 3);
     plot3(x, y, z, '-yo')
+    hold off;
 end
