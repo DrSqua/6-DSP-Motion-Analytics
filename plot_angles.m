@@ -11,12 +11,14 @@ switch local_frame
         EMR = tsv{:,28:30}; % Elleboog binnen
         PMR = tsv{:,40:42}; % Pols
         PLR = tsv{:,43:45}; % Pols binnen
+        
+        nFrames = size(ELR,1);
 
         R_upp_arm = zeros(3,3,nFrames);
         R_upp_arm_child = zeros(3,3,nFrames);
 
         jointAngles_arm = zeros(nFrames,3);  % [flexion, abduction, rotation]
-
+        
         for i = 1:nFrames
           % 3a) Attitude matrices (local→global)
           R_upp_arm(:,:,i) = attitude_matrix( AR(i,:)', ELR(i,:)', EMR(i,:)' );
