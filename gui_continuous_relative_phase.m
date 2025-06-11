@@ -1,14 +1,13 @@
-function [figure] = gui_continuous_relative_phase(compute_type, signal1, signal2, name_signal_1, name_signal_2, butterworth_order, second_term)
+function [figure] = gui_continuous_relative_phase(compute_type, signal1, signal2, name_signal_1, name_signal_2, sampling_frequency, cutoff_frequency, order)
     % Compute type -> 'norm, notnorm, hilbert'
     % Input of signal1 and signal2 should be a 1D matrix of euler angles in
     % a given direction.
 
     %% Preprocessing
     % Apply Butterworth filter to smooth signals
-    [b, a] = butter(butterworth_order, second_term);
-    signal1 = filtfilt(b, a, signal1);
-    signal2 = filtfilt(b, a, signal2);
-
+    signal1 = butterworth_filter(signal1, sampling_frequency, cutoff_frequency, order);
+    signal2 = butterworth_filter(signal2, sampling_frequency, cutoff_frequency, order);
+     
     % Compute angular velocity (derivative over time)
     vel1 = gradient(signal1);
     vel2 = gradient(signal2);
