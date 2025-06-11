@@ -23,12 +23,20 @@ function [fig] = gui_3D_fullbody(tsv, t)
     xlabel('X'); ylabel('Y'); zlabel('Z');
     view(3);
 
-    % Upper arm
+    % Upper arm Methode 1
     positions_upper_arm = [AR(t, :); ELR(t, :); EMR(t, :); AR(t, :)];
     x = positions_upper_arm(:, 1);
     y = positions_upper_arm(:, 2);
     z = positions_upper_arm(:, 3);
     plot3(x, y, z, '-ro')
+    hold on;
+
+    % Upper arm Methode 2
+    positions_upper_arm = [AR(t, :); ELR(t, :); EMR(t, :); PLR(t, :) AR(t, :)];
+    x = positions_upper_arm(:, 1);
+    y = positions_upper_arm(:, 2);
+    z = positions_upper_arm(:, 3);
+    plot3(x, y, z, '-mo')
     hold on;
   
     % Lower arm
@@ -60,7 +68,7 @@ function [fig] = gui_3D_fullbody(tsv, t)
     x = positions_thigh(:, 1);
     y = positions_thigh(:, 2);
     z = positions_thigh(:, 3);
-    plot3(x, y, z, '-mo')
+    plot3(x, y, z, '-co')
     hold on;
     
     % Linker scheenbeen
