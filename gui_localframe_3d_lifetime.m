@@ -24,8 +24,10 @@ function [fig] = gui_localframe_3d_lifetime(tsv, local_frame)
     MLL = tsv{:,97:99};
     
     switch local_frame
-        case "upper_arm"
+        case "upper_arm_m1"
             positions = [AR, ELR, EMR];
+        case "upper_arm_m2"
+            positions = [AR, ELR, EMR, PLR];
         case 'lower_arm'
             positions = [EMR, PLR, PMR];
         case 'thorax'
