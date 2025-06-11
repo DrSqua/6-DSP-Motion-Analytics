@@ -156,18 +156,23 @@ crp = mod(crp + 180, 360) - 180;  % wrap to [-180, 180]
 % Plot
 %
 % Plot angle-velocity phase plane for signal1 (elbow)
-figure; hold on; grid on;
+% Create a single figure with two subplots side by side
+figure;
+
+% Left subplot: Angle-Velocity Phase Plane for Elbow
+subplot(1, 2, 1); % 1 row, 2 columns, first plot
+hold on; grid on;
 
 % Plot trajectory as blue dots
 plot(signal1_norm, vel1_norm, 'b.', 'MarkerSize', 12);
 
 % Mark start and end points
-plot(signal1_norm(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2);  % Start
-plot(signal1_norm(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2);  % End
+plot(signal1_norm(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2); % Start
+plot(signal1_norm(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2); % End
 
 % Axis labels and title
-xlabel('Normalized Angle');
-ylabel('Normalized Velocity');
+xlabel('Angle');
+ylabel('Velocity');
 title('Angle-Velocity Phase Plane (Elbow)');
 
 % Legend
@@ -177,7 +182,29 @@ legend({'Trajectory', 'Start', 'End'}, 'Location', 'best');
 [~, idx] = max(abs(vel1_norm));
 x_annot = signal1_norm(idx);
 y_annot = vel1_norm(idx);
+text(x_annot, y_annot, 'Max Velocity', 'Color', 'k', 'FontSize', 10, 'HorizontalAlignment', 'right');
+
 hold off;
+
+% Right subplot: CRP over Time
+subplot(1, 2, 2); % 1 row, 2 columns, second plot
+hold on; grid on;
+
+% Plot CRP as black line
+plot(crp, 'k-', 'LineWidth', 1.5);
+
+% Axis labels and title
+xlabel('Time (samples)');
+ylabel('Continuous Relative Phase (degrees)');
+title('CRP: Elbow vs. Shoulder Flexion/Extension');
+
+% Legend
+legend({'CRP'}, 'Location', 'best');
+hold off;
+
+% Adjust figure layout
+sgtitle('Elbow Motion Analysis Methode 1 Normalised'); % Optional: Add a super-title for the entire figure
+set(gcf, 'Position', [100, 100, 1200, 400]); % Adjust figure size for better visibility
 
 %% Methode 1 Non-normalized
 signal1 = euler_angles_FU(:,2);  % Elbow flexion/extension (X rotation)
@@ -206,15 +233,19 @@ crp = mod(crp + 180, 360) - 180;  % wrap to [-180, 180]
 
 % Plot
 %
-% Plot angle-velocity phase plane for signal1 (elbow)
-figure; hold on; grid on;
+% Create a single figure with two subplots side by side
+figure;
+
+% Left subplot: Angle-Velocity Phase Plane for Elbow
+subplot(1, 2, 1); % 1 row, 2 columns, first plot
+hold on; grid on;
 
 % Plot trajectory as blue dots
 plot(signal1_norm, vel1_norm, 'b.', 'MarkerSize', 12);
 
 % Mark start and end points
-plot(signal1_norm(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2);  % Start
-plot(signal1_norm(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2);  % End
+plot(signal1_norm(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2); % Start
+plot(signal1_norm(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2); % End
 
 % Axis labels and title
 xlabel('Angle');
@@ -228,16 +259,30 @@ legend({'Trajectory', 'Start', 'End'}, 'Location', 'best');
 [~, idx] = max(abs(vel1_norm));
 x_annot = signal1_norm(idx);
 y_annot = vel1_norm(idx);
+text(x_annot, y_annot, 'Max Velocity', 'Color', 'k', 'FontSize', 10, 'HorizontalAlignment', 'right');
+
 hold off;
 
-% New: Plot CRP over time
-figure; hold on; grid on;
+% Right subplot: CRP over Time
+subplot(1, 2, 2); % 1 row, 2 columns, second plot
+hold on; grid on;
+
+% Plot CRP as black line
 plot(crp, 'k-', 'LineWidth', 1.5);
+
+% Axis labels and title
 xlabel('Time (samples)');
 ylabel('Continuous Relative Phase (degrees)');
 title('CRP: Elbow vs. Shoulder Flexion/Extension');
+
+% Legend
 legend({'CRP'}, 'Location', 'best');
+
 hold off;
+
+% Adjust figure layout
+sgtitle('Elbow Motion Analysis Method 1 Non-normalised'); % Optional: Add a super-title for the entire figure
+set(gcf, 'Position', [100, 100, 1200, 400]); % Adjust figure size for better visibility
 
 %% Methode 2: Hilbert Transform
 signal1 = euler_angles_FU(:,2);  % Elbow flexion/extension (X rotation)
@@ -262,20 +307,25 @@ phase2 = angle(analytic_signal2);     % Instantaneous phase in radians
 crp = rad2deg(phase1 - phase2);
 crp = mod(crp + 180, 360) - 180;  % Wrap to [-180, 180]
 
-% Plot angle-velocity phase plane for signal1 (elbow)
-figure; hold on; grid on;
+% Plot
+% Create a single figure with two subplots side by side
+figure;
+
+% Left subplot: Angle-Velocity Phase Plane for Elbow
+subplot(1, 2, 1); % 1 row, 2 columns, first plot
+hold on; grid on;
 
 % Plot trajectory as blue dots
-plot(analytic_signal1, vel1, 'b.', 'MarkerSize', 12);
+plot(analytic_signal1, vel1_norm, 'b.', 'MarkerSize', 12);
 
 % Mark start and end points
-plot(analytic_signal1(1), vel1(1), 'go', 'MarkerSize', 10, 'LineWidth', 2);  % Start
-plot(analytic_signal1(end), vel1(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2);  % End
+plot(analytic_signal1(1), vel1(1), 'go', 'MarkerSize', 10, 'LineWidth', 2); % Start
+plot(analytic_signal1(end), vel1(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2); % End
 
 % Axis labels and title
 xlabel('Angle');
 ylabel('Velocity');
-title('Angle-Velocity Phase Plane - Hilbert (Elbow)');
+title('Angle-Velocity Phase Plane (Elbow)');
 
 % Legend
 legend({'Trajectory', 'Start', 'End'}, 'Location', 'best');
@@ -284,7 +334,27 @@ legend({'Trajectory', 'Start', 'End'}, 'Location', 'best');
 [~, idx] = max(abs(vel1));
 x_annot = analytic_signal1(idx);
 y_annot = vel1(idx);
-text(x_annot, y_annot, 'Max Velocity', 'FontSize', 10, 'Color', 'k', ...
-     'HorizontalAlignment', 'right', 'VerticalAlignment', 'bottom');
+text(x_annot, y_annot, 'Max Velocity', 'Color', 'k', 'FontSize', 10, 'HorizontalAlignment', 'right');
 
 hold off;
+
+% Right subplot: CRP over Time
+subplot(1, 2, 2); % 1 row, 2 columns, second plot
+hold on; grid on;
+
+% Plot CRP as black line
+plot(crp, 'k-', 'LineWidth', 1.5);
+
+% Axis labels and title
+xlabel('Time (samples)');
+ylabel('Continuous Relative Phase (degrees)');
+title('CRP: Elbow vs. Shoulder Flexion/Extension');
+
+% Legend
+legend({'CRP'}, 'Location', 'best');
+
+hold off;
+
+% Adjust figure layout
+sgtitle('Elbow Motion Analysis'); % Optional: Add a super-title for the entire figure
+set(gcf, 'Position', [100, 100, 1200, 400]); % Adjust figure size for better visibility
