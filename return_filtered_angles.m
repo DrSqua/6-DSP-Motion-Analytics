@@ -1,6 +1,4 @@
-function fig = plot_angles(tsv,local_frame)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+function [flexion, abduction, axialRot] = return_filtered_angles(tsv,local_frame)
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
 cutoff = 10; % Cutoff frequency (Hz)
@@ -51,23 +49,9 @@ switch local_frame
         anglesFilt_arm(:,2) = butterworth_filter(jointAngles_UT(:,2), Fs, cutoff, order); 
         anglesFilt_arm(:,3) = butterworth_filter(jointAngles_UT(:,3), Fs, cutoff, order); 
 
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("SHOULDER motion based on R-rel-UT (first method=no PLR)")
-        subplot(3,1,1)
-        plot(t, anglesFilt_arm(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_arm(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_arm(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
 
     case "upper_arm_m2"
         % SHOULDER motion based on R_rel_UT (m2 = method2 = PLR)
@@ -118,23 +102,9 @@ switch local_frame
         anglesFilt_arm(:,2) = butterworth_filter(jointAngles_UT(:,2), Fs, cutoff, order); 
         anglesFilt_arm(:,3) = butterworth_filter(jointAngles_UT(:,3), Fs, cutoff, order); 
 
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("SHOULDER motion based on R-rel-UT (second method=with PLR)")
-        subplot(3,1,1)
-        plot(t, anglesFilt_arm(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_arm(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_arm(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
 
     case 'lower_arm'
         % ELBOW motion based on R_rel_FU 
@@ -176,23 +146,9 @@ switch local_frame
         anglesFilt_low_arm(:,2) = butterworth_filter(jointAngles_low_arm(:,2), Fs, cutoff, order); 
         anglesFilt_low_arm(:,3) = butterworth_filter(jointAngles_low_arm(:,3), Fs, cutoff, order); 
 
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("ELBOW motion based on R-rel-FU")
-        subplot(3,1,1)
-        plot(t, anglesFilt_low_arm(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_low_arm(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_low_arm(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
 
     case 'core motion'
         % CORE motion (thorax relative to pelvis) based on R_rel_TP
@@ -240,23 +196,10 @@ switch local_frame
         anglesFilt_thorax(:,2) = butterworth_filter(jointAngles_thorax(:,2), Fs, cutoff, order); 
         anglesFilt_thorax(:,3) = butterworth_filter(jointAngles_thorax(:,3), Fs, cutoff, order); 
 
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("CORE motion (thorax relative to pelvis) based on R-rel-TP")
-        subplot(3,1,1)
-        plot(t, anglesFilt_thorax(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
         
-        subplot(3,1,2)
-        plot(t, anglesFilt_thorax(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_thorax(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
     
     case 'thorax'
         % THORAX motion (thorax motion within the global fram) based on the 
@@ -301,23 +244,9 @@ switch local_frame
         anglesFilt_thorax(:,2) = butterworth_filter(jointAngles_thorax(:,2), Fs, cutoff, order); 
         anglesFilt_thorax(:,3) = butterworth_filter(jointAngles_thorax(:,3), Fs, cutoff, order); 
 
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("THORAX motion (thorax motion within the global fram) based on the attitude matrix T")
-        subplot(3,1,1)
-        plot(t, anglesFilt_thorax(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_thorax(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_thorax(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
 
     case 'pelvis'
         % PELVIS motion (pelvis motion within the global frame) based on the 
@@ -356,23 +285,10 @@ switch local_frame
         anglesFilt_pelvis(:,1) = butterworth_filter(jointAngles_pelvis(:,1), Fs, cutoff, order); 
         anglesFilt_pelvis(:,2) = butterworth_filter(jointAngles_pelvis(:,2), Fs, cutoff, order); 
         anglesFilt_pelvis(:,3) = butterworth_filter(jointAngles_pelvis(:,3), Fs, cutoff, order); 
-
-        t = (1:nFrames)/Fs;  % time vector in seconds
-        fig = figure;
-        sgtitle("PELVIS motion (pelvis motion within the global frame) based on the attitude matrix P")
-        subplot(3,1,1)
-        plot(ax, t, anglesFilt_pelvis(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_pelvis(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(ax, t, anglesFilt_pelvis(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+       
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
 
     case 'left knee'
         % LEFT KNEE motion based on R_rel_STL
@@ -423,24 +339,10 @@ switch local_frame
         anglesFilt_tigh(:,1) = butterworth_filter(jointAngles_tigh(:,1), Fs, cutoff, order); 
         anglesFilt_tigh(:,2) = butterworth_filter(jointAngles_tigh(:,2), Fs, cutoff, order); 
         anglesFilt_tigh(:,3) = butterworth_filter(jointAngles_tigh(:,3), Fs, cutoff, order); 
-
-        t = (1:nFrames)/Fs;  % time vector in seconds
-
-        fig = figure;
-        sgtitle("LEFT KNEE motion based on R-rel-STL")
-        subplot(3,1,1)
-        plot(t, anglesFilt_tigh(:,1))
-        ylabel('Flexion (°)')
-        title('Glenohumeral Joint Angles')
-        
-        subplot(3,1,2)
-        plot(t, anglesFilt_tigh(:,2))
-        ylabel('Abduction (°)')
-        
-        subplot(3,1,3)
-        plot(t, anglesFilt_tigh(:,3))
-        ylabel('Axial Rot. (°)')
-        xlabel('Time (s)')
+      
+        flexion = anglesFilt_arm(:,1);
+        abduction = anglesFilt_arm(:,2);
+        axialRot = anglesFilt_arm(:,3);
         
     % case 'shin'
     %     CLL = tsv{:,82:84};
@@ -476,16 +378,16 @@ switch local_frame
     %     fig = figure;
     %     sgtitle("shin")
     %     subplot(3,1,1)
-    %     plot(t, anglesFilt_shin(:,1))
+    %    plot(ax, t, anglesFilt_shin(:,1))
     %     ylabel('Flexion (°)')
     %     title('Glenohumeral Joint Angles')
     % 
     %     subplot(3,1,2)
-    %     plot(t, anglesFilt_shin(:,2))
+    %    plot(ax, t, anglesFilt_shin(:,2))
     %     ylabel('Abduction (°)')
     % 
     %     subplot(3,1,3)
-    %     plot(t, anglesFilt_shin(:,3))
+    %    plot(ax, t, anglesFilt_shin(:,3))
     %     ylabel('Axial Rot. (°)')
     %     xlabel('Time (s)')
 
