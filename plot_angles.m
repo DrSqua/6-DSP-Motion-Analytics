@@ -4,6 +4,7 @@ function plot_angles(tsv,local_frame, ax_flexion, ax_abduction, ax_rotation)
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
 cutoff = 10; % Cutoff frequency (Hz)
+
 switch local_frame
     case "upper_arm_m1"
         % SHOULDER motion based on R_rel_UT (m1 = method1 = no PLR)

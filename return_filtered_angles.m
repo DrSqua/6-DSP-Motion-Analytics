@@ -2,7 +2,6 @@ function [flexion, abduction, axialRot] = return_filtered_angles(tsv,local_frame
 Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
 cutoff = 10; % Cutoff frequency (Hz)
-tsv = readtable("10Ax1.tsv","FileType","text","Delimiter","\t");
 switch local_frame
     case "upper_arm_m1"
         % SHOULDER motion based on R_rel_UT (m1 = method1 = no PLR)
@@ -146,9 +145,9 @@ switch local_frame
         anglesFilt_low_arm(:,2) = butterworth_filter(jointAngles_low_arm(:,2), Fs, cutoff, order); 
         anglesFilt_low_arm(:,3) = butterworth_filter(jointAngles_low_arm(:,3), Fs, cutoff, order); 
 
-        flexion = anglesFilt_arm(:,1);
-        abduction = anglesFilt_arm(:,2);
-        axialRot = anglesFilt_arm(:,3);
+        flexion = anglesFilt_low_arm(:,1);
+        abduction = anglesFilt_low_arm(:,2);
+        axialRot = anglesFilt_low_arm(:,3);
 
     case 'core motion'
         % CORE motion (thorax relative to pelvis) based on R_rel_TP
@@ -197,9 +196,9 @@ switch local_frame
         anglesFilt_thorax(:,3) = butterworth_filter(jointAngles_thorax(:,3), Fs, cutoff, order); 
 
         
-        flexion = anglesFilt_arm(:,1);
-        abduction = anglesFilt_arm(:,2);
-        axialRot = anglesFilt_arm(:,3);
+        flexion = anglesFilt_thorax(:,1);
+        abduction = anglesFilt_thorax(:,2);
+        axialRot = anglesFilt_thorax(:,3);
     
     case 'thorax'
         % THORAX motion (thorax motion within the global fram) based on the 
@@ -244,9 +243,9 @@ switch local_frame
         anglesFilt_thorax(:,2) = butterworth_filter(jointAngles_thorax(:,2), Fs, cutoff, order); 
         anglesFilt_thorax(:,3) = butterworth_filter(jointAngles_thorax(:,3), Fs, cutoff, order); 
 
-        flexion = anglesFilt_arm(:,1);
-        abduction = anglesFilt_arm(:,2);
-        axialRot = anglesFilt_arm(:,3);
+        flexion = anglesFilt_thorax(:,1);
+        abduction = anglesFilt_thorax(:,2);
+        axialRot = anglesFilt_thorax(:,3);
 
     case 'pelvis'
         % PELVIS motion (pelvis motion within the global frame) based on the 
@@ -286,9 +285,9 @@ switch local_frame
         anglesFilt_pelvis(:,2) = butterworth_filter(jointAngles_pelvis(:,2), Fs, cutoff, order); 
         anglesFilt_pelvis(:,3) = butterworth_filter(jointAngles_pelvis(:,3), Fs, cutoff, order); 
        
-        flexion = anglesFilt_arm(:,1);
-        abduction = anglesFilt_arm(:,2);
-        axialRot = anglesFilt_arm(:,3);
+        flexion = anglesFilt_pelvis(:,1);
+        abduction = anglesFilt_pelvis(:,2);
+        axialRot = anglesFilt_pelvis(:,3);
 
     case 'left knee'
         % LEFT KNEE motion based on R_rel_STL
@@ -340,9 +339,9 @@ switch local_frame
         anglesFilt_tigh(:,2) = butterworth_filter(jointAngles_tigh(:,2), Fs, cutoff, order); 
         anglesFilt_tigh(:,3) = butterworth_filter(jointAngles_tigh(:,3), Fs, cutoff, order); 
       
-        flexion = anglesFilt_arm(:,1);
-        abduction = anglesFilt_arm(:,2);
-        axialRot = anglesFilt_arm(:,3);
+        flexion = anglesFilt_tigh(:,1);
+        abduction = anglesFilt_tigh(:,2);
+        axialRot = anglesFilt_tigh(:,3);
         
     % case 'shin'
     %     CLL = tsv{:,82:84};
