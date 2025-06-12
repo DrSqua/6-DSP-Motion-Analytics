@@ -42,15 +42,3 @@ title('3D Mesh of HR Data');
 
 HR = [tsv_data(:,1);tsv_data(:,2);tsv_data(:,3)];
 disp(HR)
-%% Tobias snelle jelle test code
-% Get the data and seperate the columns
-dataIn = Ax1;
-dataHR = tsv_data(:,1);% Column from HR
-dataHL = 0;% Column from HL
-% Filter the data using butterworth filter
-fc = 300; % Cutoff frequency [Hz]
-fs = 1000; % Sampling frequency [Hz]
-n = 4; % Filter order
-
-[b,a] = butter(n, fc/(fs/2)); % Creates filter coefficiënts
-dataOutHR = filter(b,a,dataHR); % Filter the data
