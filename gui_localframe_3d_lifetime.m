@@ -1,5 +1,5 @@
 function gui_localframe_3d_lifetime(tsv, local_frame, ax)
-    %GUI_3D_FULLBODY plots skeleton frame for a given t value
+    % GUI_3D_FULLBODY plots skeleton frame for a given t value
     MS  = tsv{:,10:12}; % Nek?
     PX  = tsv{:,13:15}; % Middenrif
     AR  = tsv{:,16:18}; % Schouder Rechts
@@ -24,20 +24,20 @@ function gui_localframe_3d_lifetime(tsv, local_frame, ax)
     MLL = tsv{:,97:99};
     
     switch local_frame
-        case "upper_arm_m1"
-            positions = [AR, ELR, EMR];
-        case "upper_arm_m2"
-            positions = [AR, ELR, EMR];
-        case 'lower_arm'
-            positions = [EMR, PLR, PMR];
+        case "upper arm_m1"
+            positions = [AR, ELR, EMR, MS, PX, AL];
+        case "upper arm_m2"
+            positions = [AR, ELR, EMR, MS, PX, AL, PLR];
+        case 'lower arm'
+            positions = [EMR, ELR, PLR, PMR, AR];
         case 'thorax'
             positions = [AR, MS, AL, PX];
         case 'pelvis'
             positions = [SIPSR, SIPSL, SIASL, SIASR];
-        case 'tigh'
-            positions = [CLL, SIPSL, SIASL];
-        case 'shin'
-            positions = [CLL, MLL, MML];
+        case 'core motion'
+            positions = [MS, PX, AR, AL, SIPSR, SIPSL, SIASL, SIASR];
+        case 'left knee'
+            positions = [CLL, SIPSL, SIASL, MLL, MML];
         otherwise
             error("local_frame doesn't match our set local_frames")
     end
@@ -53,7 +53,7 @@ function gui_localframe_3d_lifetime(tsv, local_frame, ax)
     view(ax, 3);
     
     % Colors
-    colors = ['r', 'y', 'b', 'g'];
+    colors = ['r', 'y', 'b', 'g', 'c', 'm', [0.85 0.325 0.1], [0.6 0.2 0.8]];
     
     % Moving frame throughout
     for i = 1:(length(positions(1, :)) / 3)

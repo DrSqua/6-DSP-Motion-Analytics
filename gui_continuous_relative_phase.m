@@ -1,4 +1,4 @@
-function [figure] = gui_continuous_relative_phase(compute_type, signal1, signal2, name_signal_1, name_signal_2, sampling_frequency, cutoff_frequency, order)
+function gui_continuous_relative_phase(compute_type, signal1, signal2, name_signal_1, name_signal_2, sampling_frequency, cutoff_frequency, order, ax1, ax2)
     % Compute type -> 'norm, notnorm, hilbert'
     % Input of signal1 and signal2 should be a 1D matrix of euler angles in
     % a given direction.
@@ -15,12 +15,12 @@ function [figure] = gui_continuous_relative_phase(compute_type, signal1, signal2
     %% Signals
     switch compute_type
         case "norm"
-            signal1_norm = (signal1 - min(signal1)) / (max(signal1) - min(signal1)) * 2 - 1;
-            signal2_norm = (signal2 - min(signal2)) / (max(signal2) - min(signal2)) * 2 - 1;
+            transformed_signal1 = (signal1 - min(signal1)) / (max(signal1) - min(signal1)) * 2 - 1;
+            transformed_signal2 = (signal2 - min(signal2)) / (max(signal2) - min(signal2)) * 2 - 1;
             vel1_norm = (vel1 - min(vel1)) / (max(vel1) - min(vel1)) * 2 - 1;
             vel2_norm = (vel2 - min(vel2)) / (max(vel2) - min(vel2)) * 2 - 1;
-            phase1 = atan2(vel1_norm, signal1_norm);
-            phase2 = atan2(vel2_norm, signal2_norm);
+            phase1 = atan2(vel1_norm, transformed_signal1);
+            phase2 = atan2(vel2_norm, transformed_signal2);
         case "notnorm"
             transformed_signal1 = (signal1 - mean(signal1)) / std(signal1);
             transformed_signal2 = (signal2 - mean(signal2)) / std(signal2);
@@ -43,51 +43,52 @@ function [figure] = gui_continuous_relative_phase(compute_type, signal1, signal2
 
 
     %% Plot
-    figure;
     
     % Left subplot: Angle-Velocity Phase Plane for Elbow
-    subplot(1, 2, 1); % 1 row, 2 columns, first plot
-    hold on; grid on;
+    cla(ax1)
+    hold(ax1, 'on'); 
+    grid(ax1, 'on');
     
     % Plot trajectory as blue dots
-    plot(transformed_signal1, vel1_norm, 'b.', 'MarkerSize', 12);
+    plot(ax1, transformed_signal1, vel1_norm, 'b.', 'MarkerSize', 12);
     % Mark start and end points
-    plot(transformed_signal1(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2); % Start
-    plot(transformed_signal1(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2); % End
+    plot(ax1, transformed_signal1(1), vel1_norm(1), 'go', 'MarkerSize', 10, 'LineWidth', 2); % Start
+    plot(ax1, transformed_signal1(end), vel1_norm(end), 'ro', 'MarkerSize', 10, 'LineWidth', 2); % End
     % Axis labels and title
-    xlabel('Angle');
-    ylabel('Velocity');
-    title('Angle-Velocity Phase Plane (Elbow)');
+    xlabel(ax1, 'Angle (Degree)');
+    ylabel(ax1, 'Velocity (Deg/s)');
+    title(ax1, 'Angle-Velocity Phase Plane');
     
     % Legend
-    legend({'Trajectory', 'Start', 'End'}, 'Location', 'best');
+    legend(ax1, {'Trajectory', 'Start', 'End'}, 'Location', 'best');
     
     % Add annotation for max velocity point
     [~, idx] = max(abs(vel1_norm));
     x_annot = transformed_signal1(idx);
-    y_annot = transformed_vel1_norm(idx);
+    y_annot = vel1_norm(idx);
     text(x_annot, y_annot, 'Max Velocity', 'Color', 'k', 'FontSize', 10, 'HorizontalAlignment', 'right');
     
-    hold off;
+    hold(ax1, 'off');
     
     % Right subplot: CRP over Time
-    subplot(1, 2, 2); % 1 row, 2 columns, second plot
-    hold on; grid on;
+    cla(ax2)
+    hold(ax2, 'on'); 
+    grid(ax2, 'on');
     
     % Plot CRP as black line
-    plot(crp, 'k-', 'LineWidth', 1.5);
+    plot(ax2, crp, 'k-', 'LineWidth', 1.5);
     
     % Axis labels and title
-    xlabel('Time (samples)');
-    ylabel('Continuous Relative Phase (degrees)');
-    title('CRP:' + name_signal_1 + ' vs. ' + name_signal_2 + ' Shoulder Flexion/Extension');
+    xlabel(ax2, 'Time (samples)');
+    ylabel(ax2, 'Continuous Relative Phase (degrees)');
+    title(ax2, ['CRP:', name_signal_1, ' vs. ', name_signal_2]);
     
     % Legend
-    legend({'CRP'}, 'Location', 'best');
+    legend(ax2, {'CRP'}, 'Location', 'best');
     
-    hold off;
+    hold(ax2, 'off');
     
     % Adjust figure layout
-    sgtitle(name_signal_1 + ' Motion Analysis'); % Optional: Add a super-title for the entire figure
+%    sgtitle(name_signal_1 + ' Motion Analysis'); % Optional: Add a super-title for the entire figure
     set(gcf, 'Position', [100, 100, 1200, 400]); % Adjust figure size for better visibility
 end

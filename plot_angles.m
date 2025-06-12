@@ -6,12 +6,12 @@ order = 4;  % Filter order
 cutoff = 10; % Cutoff frequency (Hz)
 
 switch local_frame
-    case "upper_arm_m1"
+    case "upper arm_m1"
         % SHOULDER motion based on R_rel_UT (m1 = method1 = no PLR)
         ELR = tsv{:,25:27}; % Elleboog
         EMR = tsv{:,28:30}; % Elleboog binnen
-        PMR = tsv{:,40:42}; % Pols
-        PLR = tsv{:,43:45}; % Pols binnen
+        %PMR = tsv{:,40:42}; % Pols
+        %PLR = tsv{:,43:45}; % Pols binnen
         AR  = tsv{:,16:18}; % Schouder Rechts
 
         MS  = tsv{:,10:12};  % Thorax
@@ -55,20 +55,22 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_arm(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
         
         plot(ax_abduction, t, anglesFilt_arm(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
         
         plot(ax_rotation, t, anglesFilt_arm(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
         xlabel(ax_rotation, 'Time (s)')
 
-    case "upper_arm_m2"
+    case "upper arm_m2"
         % SHOULDER motion based on R_rel_UT (m2 = method2 = PLR)
         ELR = tsv{:,25:27}; % Elleboog
         EMR = tsv{:,28:30}; % Elleboog binnen
-        PMR = tsv{:,40:42}; % Pols
+        %PMR = tsv{:,40:42}; % Pols
         PLR = tsv{:,43:45}; % Pols binnen
         AR  = tsv{:,16:18}; % Schouder Rechts
 
@@ -117,20 +119,22 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_arm(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
         
         plot(ax_abduction, t, anglesFilt_arm(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
 
         plot(ax_rotation, t, anglesFilt_arm(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
         xlabel(ax_rotation, 'Time (s)')
 
-    case 'lower_arm'
+    case 'lower arm'
         % ELBOW motion based on R_rel_FU 
-        PLR = tsv{:,43:45}; % Pols binnen
-        EMR = tsv{:,28:30}; % Elleboog binnen
-        PMR = tsv{:,40:42}; % Pols
+        %PLR = tsv{:,43:45}; % Pols binnen
+        %EMR = tsv{:,28:30}; % Elleboog binnen
+        %PMR = tsv{:,40:42}; % Pols
 
         ELR = tsv{:,25:27}; % Elleboog
         EMR = tsv{:,28:30}; % Elleboog binnen
@@ -141,7 +145,7 @@ switch local_frame
         nFrames = size(PLR,1);
         R_upp_arm = zeros(3,3,nFrames);
         R_low_arm = zeros(3,3,nFrames);
-        R_low_arm_child = zeros(3,3,nFrames);
+        %R_low_arm_child = zeros(3,3,nFrames);
 
         jointAngles_low_arm = zeros(nFrames,3);  % [flexion, abduction, rotation]
         
@@ -170,10 +174,12 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_low_arm(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
         
         plot(ax_abduction, t, anglesFilt_low_arm(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
 
         plot(ax_rotation, t, anglesFilt_low_arm(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
@@ -229,10 +235,12 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_thorax(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
 
         plot(ax_abduction, t, anglesFilt_thorax(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
 
         plot(ax_rotation, t, anglesFilt_thorax(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
@@ -246,17 +254,10 @@ switch local_frame
         AR  = tsv{:,16:18}; % Schouder Rechts
         AL  = tsv{:,19:21}; % Schouder Links
 
-        SIPSR = tsv{:,61:63};
-        SIPSL = tsv{:,64:66};
-        SIASL = tsv{:,67:69};
-        SIASR = tsv{:,70:72};
-
         nFrames = size(MS,1);
 
-        P_pelvis_ref = [SIPSR(1,:)', SIPSL(1,:)', SIASL(1,:)', SIASR(1,:)'];
         P_thorax_ref = [MS(1,:)', PX(1,:)', AR(1,:)', AL(1,:)'];
 
-        R_pelvis_att = zeros(3,3,nFrames);
         R_thorax_att = zeros(3,3,nFrames);
 
         jointAngles_thorax = zeros(nFrames,3);  % [flexion, abduction, rotation]
@@ -285,10 +286,12 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_thorax(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
 
         plot(ax_abduction, t, anglesFilt_thorax(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
         
        plot(ax_rotation, t, anglesFilt_thorax(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
@@ -336,12 +339,14 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_pelvis(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
         
         plot(ax_abduction, t, anglesFilt_pelvis(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
         
-        plot(ax_rotation, ax, t, anglesFilt_pelvis(:,3))
+        plot(ax_rotation, t, anglesFilt_pelvis(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
         xlabel(ax_rotation, 'Time (s)')
 
@@ -357,19 +362,19 @@ switch local_frame
 
         R_thigh = zeros(3,3,nFrames);
         R_shin = zeros(3,3,nFrames);
-        R_thigh_att = zeros(3,3,nFrames);
-        R_shin_att = zeros(3,3,nFrames);
+        %R_thigh_att = zeros(3,3,nFrames);
+        %R_shin_att = zeros(3,3,nFrames);
 
-        P_tigh_ref = [CLL(1,:)', SIPSL(1,:)', SIASL(1,:)'];
-        P_shin_ref = [CLL(1,:)', MLL(1,:)', MML(1,:)'];
+        %P_tigh_ref = [CLL(1,:)', SIPSL(1,:)', SIASL(1,:)'];
+        %P_shin_ref = [CLL(1,:)', MLL(1,:)', MML(1,:)'];
 
         nFrames = size(CLL,1);
 
         jointAngles_tigh = zeros(nFrames,3);  % [flexion, abduction, rotation]
         
         for i = 1:nFrames
-          P_tigh = [CLL(i,:)', SIPSL(i,:)', SIASL(i,:)'];
-          P_shin = [CLL(i,:)', MLL(i,:)', MML(i,:)'];
+          %P_tigh = [CLL(i,:)', SIPSL(i,:)', SIASL(i,:)'];
+          %P_shin = [CLL(i,:)', MLL(i,:)', MML(i,:)'];
 
           % 3a) Attitude matrices (local→global)
           R_thigh(:,:,i) = attitude_matrix( CLL(i,:)', SIPSL(i,:)', SIASL(i,:)' );
@@ -399,10 +404,12 @@ switch local_frame
 
         plot(ax_flexion, t, anglesFilt_tigh(:,1))
         ylabel(ax_flexion, 'Flexion (°)')
+        xlabel(ax_flexion, 'Time (s)')
         title(ax_flexion, 'Glenohumeral Joint Angles')
         
         plot(ax_abduction, t, anglesFilt_tigh(:,2))
         ylabel(ax_abduction, 'Abduction (°)')
+        xlabel(ax_abduction, 'Time (s)')
         
         plot(ax_rotation, t, anglesFilt_tigh(:,3))
         ylabel(ax_rotation, 'Axial Rot. (°)')
@@ -441,10 +448,12 @@ switch local_frame
     %
     %     plot(ax_flexion, t, anglesFilt_shin(:,1))
     %     ylabel(ax_flexion, 'Flexion (°)')
+    %     xlabel(ax_flexion, 'Time (s)')
     %     title(ax_flexion, 'Glenohumeral Joint Angles')
     % 
     %     plot(ax_abduction, t, anglesFilt_shin(:,2))
     %     ylabel(ax_abduction, 'Abduction (°)')
+    %     xlabel(ax_abduction, 'Time (s)')
     % 
     %     plot(ax_rotation, t, anglesFilt_shin(:,3))
     %     ylabel(ax_rotation, 'Axial Rot. (°)')

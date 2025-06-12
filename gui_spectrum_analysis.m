@@ -34,6 +34,7 @@ function gui_spectrum_analysis(ax, raw_x, fs)
     % Waterfall plot
     waterfall(ax, f, t, power)
     set(gca, XDir="reverse", View=[30 50])
+    title(ax, 'Spectrum Analysis')
     xlabel(ax, "Frequency (Hz)")
     ylabel(ax, "Time (s)")
     zlabel(ax, 'Power (dB)')

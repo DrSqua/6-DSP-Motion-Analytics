@@ -3,7 +3,7 @@ Fs = 300;   % Sampling frequency (Hz)
 order = 4;  % Filter order
 cutoff = 10; % Cutoff frequency (Hz)
 switch local_frame
-    case "upper_arm_m1"
+    case "upper arm_m1"
         % SHOULDER motion based on R_rel_UT (m1 = method1 = no PLR)
         ELR = tsv{:,25:27}; % Elleboog
         EMR = tsv{:,28:30}; % Elleboog binnen
@@ -52,7 +52,7 @@ switch local_frame
         abduction = anglesFilt_arm(:,2);
         axialRot = anglesFilt_arm(:,3);
 
-    case "upper_arm_m2"
+    case "upper arm_m2"
         % SHOULDER motion based on R_rel_UT (m2 = method2 = PLR)
         ELR = tsv{:,25:27}; % Elleboog
         EMR = tsv{:,28:30}; % Elleboog binnen
@@ -105,7 +105,7 @@ switch local_frame
         abduction = anglesFilt_arm(:,2);
         axialRot = anglesFilt_arm(:,3);
 
-    case 'lower_arm'
+    case 'lower arm'
         % ELBOW motion based on R_rel_FU 
         PLR = tsv{:,43:45}; % Pols binnen
         EMR = tsv{:,28:30}; % Elleboog binnen

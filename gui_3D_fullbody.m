@@ -26,6 +26,14 @@ function gui_3D_fullbody(tsv, t, ax)
     ylabel(ax, 'Y');
     zlabel(ax, 'Z');
     view(ax, 3);
+    % Make sure figure is in fixed plot size
+    x_min = 0; x_max = 4000; % Example values, adjust as needed
+    y_min = -600; y_max = 1600; % Example values, adjust as needed
+    z_min = 0; z_max = 2500;   % Example values, adjust as needed
+    
+    xlim(ax, [x_min x_max]);
+    ylim(ax, [y_min y_max]);
+    zlim(ax, [z_min z_max]);
 
     % Upper arm Methode 1
     positions_upper_arm = [AR(t, :); ELR(t, :); EMR(t, :); AR(t, :)];
