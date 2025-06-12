@@ -48,15 +48,15 @@ title(vel_ax3, sprintf("Rotational Velocity (°/s) - %s", local_frame));
 plot(acc_ax1, t, accelerations(:,1));
 ylabel(acc_ax1, 'Flexion acc.');
 xlabel(acc_ax1, 'Time (s)');
-title(acc_ax1, sprintf("Rotational Acceleration (°/s²) - %s", local_frame));
+title(acc_ax1, "Rotational Acceleration (°/s²) - %s", local_frame);
 
 plot(acc_ax2, t, accelerations(:,2));
 ylabel(acc_ax2, 'Abduction acc.');
 xlabel(acc_ax2, 'Time (s)');
-title(acc_ax2, sprintf("Rotational Acceleration (°/s²) - %s", local_frame));
+title(acc_ax2, "Rotational Acceleration (°/s²) - %s", local_frame);
 
 plot(acc_ax3, t, accelerations(:,3));
 ylabel(acc_ax3, 'Axial Rot. acc.');
 xlabel(acc_ax3, 'Time (s)');
-title(acc_ax3, sprintf("Rotational Acceleration (°/s²) - %s", local_frame));
+title(acc_ax3, "Rotational Acceleration (°/s²) - %s", local_frame);
 end
